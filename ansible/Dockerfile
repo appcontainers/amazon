@@ -1,5 +1,5 @@
 ###########################################################
-# Dockerfile to build the AmazonLinux Base Container
+# Dockerfile to build the AmazonLinux Base Container w/ Ansible
 # Based on: library/amazonlinux:latest
 # DATE: 11/28/16
 # COPYRIGHT: Appcontainers.com
