@@ -7,7 +7,7 @@
 
 # Set the base image in namespace/repo format. 
 # To use repos that are not on the docker hub use the example.com/namespace/repo format.
-FROM library/amazonlinux
+FROM library/amazonlinux:2017.03
 
 # File Author / Maintainer
 MAINTAINER Rich Nason rnason@appcontainers.com
@@ -48,12 +48,13 @@ rm -fr *.rpm && \
 #Enable the remi repo
 sed -ie '/\[epel\]/,/^\[/s/enabled=0/enabled=1/' /etc/yum.repos.d/epel.repo && \
 sed -ie '/\[remi\]/,/^\[/s/enabled=0/enabled=1/' /etc/yum.repos.d/remi.repo && \
-sed -ie '/\[remi-php55\]/,/^\[/s/enabled=0/enabled=1/' /etc/yum.repos.d/remi.repo && \
+# sed -ie '/\[remi-php56\]/,/^\[/s/enabled=0/enabled=1/' /etc/yum.repos.d/remi.repo && \
+sed -ie '/\[remi-php71\]/,/^\[/s/enabled=0/enabled=1/' /etc/yum.repos.d/remi-php71.repo && \
 
 # Now that epel is installed, clean all again and update
 yum clean all && \
 yum -y update && \
-yum -y install vim ansible findutils && \
+yum -y install ansible findutils && \
 
 # Remove yum cache this bad boy can be 150MBish
 yum clean all && \
@@ -67,6 +68,7 @@ rm -fr /var/cache/*
 RUN curl "https://bootstrap.pypa.io/get-pip.py" -o "/tmp/get-pip.py" && \
 python /tmp/get-pip.py && \
 pip install pip --upgrade && \
+pip install awscli --upgrade --user && \
 rm -fr /tmp/get-pip.py && \
 mkdir -p /etc/ansible/roles || exit 0 && \
 echo localhost ansible_connection=local > /etc/ansible/hosts
