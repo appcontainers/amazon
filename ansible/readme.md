@@ -1,6 +1,6 @@
-># Amazon Linux Base Minimal Install - 333 MB (tags: ansible, ansible-2017.03)
+># Amazon Linux Base Minimal Install - 260 MB (tags: ansible, ansible-2017.03)
 
-***This container is built from [amazonlinux:latest](https://hub.docker.com/_/amazonlinux), (396 MB Before Flatification)***
+***This container is built from [amazonlinux:latest](https://hub.docker.com/_/amazonlinux), (316 MB Before Flatification)***
 
 <br>
 

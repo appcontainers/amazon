@@ -1,7 +1,7 @@
-**Amazon Linux Base Minimal Install - Updated 05/15/2017**
+**Amazon Linux Base Minimal Install - Updated 05/18/2017**
 
 
-**Amazon Linux 2017.03 Base Minimal Install - 141 MB - Updated 05/15/2017**
+**Amazon Linux 2017.03 Base Minimal Install - 192 MB - Updated 05/18/2017**
 
 >**Built from amazonlinux:latest**
 
@@ -15,7 +15,7 @@ http://www.appcontainers.com/amazon
 
 &nbsp;
 
-**Amazon Linux 2017.03 Base Minimal Install w/Ansible - 333 MB - Updated 05/15/2017**
+**Amazon Linux 2017.03 Base Minimal Install w/Ansible - 260 MB - Updated 05/18/2017**
 
 >**Built from amazonlinux:latest**
 

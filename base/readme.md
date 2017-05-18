@@ -1,6 +1,6 @@
-># Amazon Linux Base Minimal Install - 141 MB (tags: latest, 2017.03)
+># Amazon Linux Base Minimal Install - 192 MB (tags: latest, 2017.03)
 
-***This container is built from [amazonlinux:latest](https://hub.docker.com/_/amazonlinux), (187 MB Before Flatification)***
+***This container is built from [amazonlinux:latest](https://hub.docker.com/_/amazonlinux), (238 MB Before Flatification)***
 
 <br>
 
