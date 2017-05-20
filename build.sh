@@ -16,6 +16,7 @@ docker push "appcontainers/amazon:2017.03"
 docker images
 docker rmi build/amazon
 docker rmi "appcontainers/amazon:2017.03"
+docker rmi "appcontainers/amazon:latest"
 
 # Base Container Image with Ansible
 cd ../ansible
@@ -29,3 +30,5 @@ docker push "appcontainers/amazon:ansible-2017.03"
 docker images
 docker rmi build/amazon
 docker rmi "appcontainers/amazon:ansible-2017.03"
+docker rmi "appcontainers/amazon:ansible"
+docker rmi "amazonlinux:2017.03"

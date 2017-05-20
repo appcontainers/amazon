@@ -1,4 +1,4 @@
-># Amazon Linux Base Minimal Install - 260 MB (tags: ansible, ansible-2017.03)
+># Amazon Linux Ansible Base Minimal Install - 260 MB (tags: ansible, ansible-2017.03)
 
 ***This container is built from [amazonlinux:latest](https://hub.docker.com/_/amazonlinux), (316 MB Before Flatification)***
 
@@ -7,7 +7,7 @@
 ## Installation Steps:
 -------
 
-#### Install the Epel Repository
+#### Install the Epel Repository:
 
 ```bash
 yum install -y epel-release
@@ -16,7 +16,7 @@ rpm --import http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
 
 <br>
 
-#### Install the Remi Repository
+#### Install the Remi Repository:
 
 ```bash
 cd /etc/yum.repos.d/;
@@ -28,7 +28,7 @@ rm -fr *.rpm
 
 <br>
 
-#### Modify both of the Epel and Remi Repos to enable epel, remi base and PHP 7.1
+#### Modify both of the Epel and Remi Repos to enable epel, remi base and PHP 7.1:
 
 ```bash
 sed -ie '/\[epel\]/,/^\[/s/enabled=0/enabled=1/' /etc/yum.repos.d/epel.repo && \
@@ -38,7 +38,7 @@ sed -ie '/\[remi-php71\]/,/^\[/s/enabled=0/enabled=1/' /etc/yum.repos.d/remi-php
 
 <br>
 
-#### Update the OS and install required packages
+#### Update the OS and install required packages:
 
 ```bash
 yum clean all;
@@ -48,14 +48,14 @@ yum -y install ansible findutils
 
 <br>
 
-#### Configure Ansible
+#### Configure Ansible:
 
 ```bash
 mkdir -p /etc/ansible/roles || exit 0 && \
 echo localhost ansible_connection=local > /etc/ansible/hosts
 ```
 
-#### Install and Configure pip, and the AWSCLI
+#### Install and Configure pip, and the AWSCLI:
 
 ```bash
 curl "https://bootstrap.pypa.io/get-pip.py" -o "/tmp/get-pip.py" && \
@@ -67,7 +67,7 @@ rm -fr /tmp/get-pip.py && \
 
 <br>
 
-#### Cleanup
+#### Cleanup:
 
 ***Remove the contents of /var/cache/ after a yum update or yum install will save about 150MB from the image size***
 
@@ -78,7 +78,7 @@ rm -f /etc/yum.repos.d/*.rpm; rm -fr /var/cache/*
 
 <br>
 
-#### Cleanup Locales
+#### Cleanup Locales:
 
 ```bash
 for x in `ls /usr/share/locale | grep -v -i en | grep -v -i local`;do rm -fr /usr/share/locale/$x; done && \
@@ -95,7 +95,7 @@ build-locale-archive
 
 <br>
 
-#### Set the default Timezone to EST
+#### Set the default Timezone to EST:
 
 ```bash
 cp /etc/localtime /root/old.timezone && \
@@ -105,7 +105,7 @@ ln -s /usr/share/zoneinfo/America/New_York /etc/localtime
 
 <br>
 
-#### Remove Man Pages and Docs to preserve Space
+#### Remove Man Pages and Docs to preserve Space:
 
 ```bash
 rm -fr /usr/share/doc/* /usr/share/man/* /usr/share/groff/* /usr/share/info/*;
@@ -114,7 +114,7 @@ rm -rf /usr/share/lintian/* /usr/share/linda/* /var/cache/man/*
 
 <br>
 
-#### Set the Terminal CLI Prompt
+#### Set the Terminal CLI Prompt:
 
 ***Copy the included Terminal CLI Color Scheme file to /etc/profile.d so that the terminal color will be included in all child images***
 
@@ -156,7 +156,7 @@ fi
 
 <br>
 
-#### Prevent the .bashrc from being executed via SSH or SCP sessions
+#### Prevent the .bashrc from being executed via SSH or SCP sessions:
 
 ```bash
 echo -e "\nif [[ -n \"\$SSH_CLIENT\" || -n \"\$SSH_TTY\" ]]; then\n\treturn;\nfi\n" >> /root/.bashrc && \
@@ -165,7 +165,7 @@ echo -e "\nif [[ -n \"\$SSH_CLIENT\" || -n \"\$SSH_TTY\" ]]; then\n\treturn;\nfi
 
 <br>
 
-#### Set Dockerfile Runtime command
+#### Set Dockerfile Runtime command:
 
 ***Default command to run when lauched via docker run***
 
@@ -184,7 +184,7 @@ docker build -t build/amazon .
 
 <br>
 
-## Flattening the final image
+## Packaging the final image:
 -------
 
 Because we want to make this image as light weight as possible in terms of size, the image is flattened in order to remove the docker build tree, removing any intermediary build containers from the image. In order to remove the reversion history, the image needs to be ran, and then exported/imported. Note that just saving the image will not remove the revision history, In order to remove the revision history, the running container must be exported and then re-imported.
@@ -211,7 +211,7 @@ build/amazon \
 __Note that because we started the build container with the name of amazon, we will use that in the export statement instead of the container ID.__
 
 ```bash
-docker export amazon | docker import - appcontainers/amazon:latest
+docker export amazon | docker import - appcontainers/amazon:ansible
 ```
 
 <br>
@@ -226,7 +226,7 @@ Issuing a `docker images` should now show a newly saved appcontainers/amazon ima
 -------
 
 ```bash
-docker run -it -d appcontainers/amazon
+docker run -it -d appcontainers/amazon:ansible
 ```
 
 <br>
